@@ -5,7 +5,7 @@ function validateForm() {
     let phoneValue = phoneInput.value.trim();
     let digitsOnly = phoneValue.replace(/\D/g, ''); // лише цифри
 
-    // Румыния: +40 (7X) XXX-XXXX → 11 цифр (3 + 8 цифр)
+    // Румыния: +40 (XX) XXX-XXXX → 11 цифр (3 + 8 цифр)
     if (digitsOnly.length !== 11) {
         alert('Vă rugăm să introduceți numărul complet de telefon, inclusiv prefixul.');
         return false;
@@ -16,7 +16,7 @@ function validateForm() {
         "70", "71", "72", "73", "74", "75", "76", "77", "78", "79"
     ];
 
-    // Витягуємо area code з номера у форматі +40 (7X) XXX-XXXX
+    // Витягуємо area code з номера у форматі +40 (XX) XXX-XXXX
     let areaCodeMatch = digitsOnly.match(/^40([7]\d)\d{7}$/);
 
     if (areaCodeMatch && areaCodeMatch[1]) {
@@ -26,7 +26,7 @@ function validateForm() {
             return false;
         }
     } else {
-        alert('Vă rugăm să introduceți numărul în formatul corect: +40 (7X) XXX XXXX');
+        alert('Vă rugăm să introduceți numărul în formatul corect: +40 (XX) XXX XXXX');
         return false;
     }
 
