@@ -7,7 +7,7 @@ function validateForm() {
 
     // Румыния: +40 (7X) XXX-XXXX → 11 цифр (3 + 8 цифр)
     if (digitsOnly.length !== 11) {
-        alert('Please enter the full phone number, including the area code.');
+        alert('Vă rugăm să introduceți numărul complet de telefon, inclusiv prefixul.');
         return false;
     }
 
