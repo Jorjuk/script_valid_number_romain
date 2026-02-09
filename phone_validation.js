@@ -18,7 +18,7 @@ function validateForm(){
 
     if (operatorCode && operatorCode[1]) {
         if (!validOperators.includes(operatorCode[1])) {
-            alert(''Prefix mobil invalid pentru România!: ' + validOperators.join(', '));
+            alert('Prefix mobil invalid pentru România!: ' + validOperators.join(', '));
             return false; // Зупиняємо відправку форми
         }
     } else {
