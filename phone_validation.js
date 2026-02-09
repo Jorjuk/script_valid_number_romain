@@ -1,39 +1,35 @@
-function validateForm() {
-    let form = event.target;
-    let phoneInput = form.querySelector('.phone');
+function validateForm(){
+    // Отримуємо значення телефону
+    let form = event.target; // Форма, яку користувач відправляє
+    let phoneInput = form.querySelector('.phone'); // Беремо телефон саме з цієї форми
 
-    let phoneValue = phoneInput.value.trim();
-    let digitsOnly = phoneValue.replace(/\D/g, ''); // лише цифри
+    let phoneValue = phoneInput.value;
+    let digitsOnly = phoneValue.replace(/\D/g, ''); // Видаляємо всі нецифрові символи
 
-    // Румыния: +40 (XX) XXX-XXXX → 11 цифр (3 + 8 цифр)
-    if (digitsOnly.length !== 11) {
+    // Перевірка на кількість цифр
+    if (digitsOnly.length !== 11) { // Перевіряємо, чи 11 цифр (формат +40 (XX) XXX-XXXX → 11 цифр (3 + 8 цифр)
         alert('Vă rugăm să introduceți numărul complet de telefon, inclusiv prefixul.');
-        return false;
+        return false; // Зупиняємо відправку форми
     }
 
-    // Список дійсних канадських area codes (основні)
-    const validAreaCodes = [
-        "70", "71", "72", "73", "74", "75", "76", "77", "78", "79"
-    ];
+    // Основні коди  мобільних операторів
+    const validOperators = ["70", "71", "72", "73", "74", "75", "76", "77", "78", "79"];
+    let operatorCode = phoneValue.match(/\+40 \((7\d)\)/); // // Витягуємо area code з номера у форматі +40 (XX) XXX-XXXX
 
-    // Витягуємо area code з номера у форматі +40 (XX) XXX-XXXX
-    let areaCodeMatch = digitsOnly.match(/^40([7]\d)\d{7}$/);
-
-    if (areaCodeMatch && areaCodeMatch[1]) {
-        let areaCode = areaCodeMatch[1];
-        if (!validAreaCodes.includes(areaCode)) {
-            alert('Prefix mobil invalid pentru România!: ' + validAreaCodes.join(', '));
-            return false;
+    if (operatorCode && operatorCode[1]) {
+        if (!validOperators.includes(operatorCode[1])) {
+            alert(''Prefix mobil invalid pentru România!: ' + validOperators.join(', '));
+            return false; // Зупиняємо відправку форми
         }
     } else {
-        alert('Vă rugăm să introduceți numărul în formatul corect: +40 (XX) XXX XXXX');
-        return false;
+        alert('Vă rugăm să introduceți numărul în formatul corect: +40 (7X) XXX XXXX');
+        return false; // Зупиняємо відправку форми
     }
 
-    // Пошук ідентифікаторів полів
     let num = form.querySelector('input[name^="tel"]').name.replace('tel', '') || 1;
     let name = form.querySelector('input[name^="name"]').name.replace('name', '') || '';
-
-    sendorder(num);
-    return false;
-}
+    
+    // Якщо перевірки пройшли успішно, викликаємо sendorder
+    sendorder(num); // Відправка форми через sendorder
+    return false; // Повертаємо false, щоб форма не відправлялася стандартним способом
+};
